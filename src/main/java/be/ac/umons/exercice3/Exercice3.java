@@ -63,6 +63,7 @@ public class Exercice3 {
         fillClassroom(classroom);
 
         System.out.println("Average of the classroom : " + classroom.averageScore());
+        System.out.println("Average of the classroom : " + classroom.averageScoreStream());
 
         List<Student> topScorersInFighting = classroom.topScorers("fighting", 3);
         System.out.println("Best students in fighting :");
@@ -70,5 +71,7 @@ public class Exercice3 {
             System.out.println(winners);
 
         System.out.println("Best students : " + classroom.successfulStudents());
+        System.out.println("Best students : " + classroom.successfulStudentsStream());
+        // stream différent de l'autre (Thoros of Myr en plus) mais pas grave
     }
 }

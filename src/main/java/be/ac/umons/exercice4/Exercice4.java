@@ -27,7 +27,7 @@ public class Exercice4 {
         String filePath = null;
 
         if (args.length == 0)
-            filePath = new String("dracula.txt");
+            filePath = new String("frwiki-20191101-pages-articles1-3M.txt");
         else if (args.length > 0 && args[0] != null && !args[0].isEmpty())
         {
             filePath = args[0];
@@ -36,12 +36,19 @@ public class Exercice4 {
         try (Stream<String> stream = Files.lines(Paths.get(filePath))) {
             String regex = new String("[ ,\\.;:'\\-_()\\=’\\|\\[\\]\\{\\}\"@\\*#/\\?\\!«»]");
 
-            Map<String, Long> words =
+                       Map<String, Long> words =
+                    stream.flatMap(line -> Arrays.stream(line.split(regex))).parallel()  // découpe en utilisant une regex pour trouver les séparateurs
+                            .filter(line -> Optional.ofNullable(line).orElse("").length() != 0).parallel()  // enlève les lignes vides
+                            .filter(word -> word.length() >= 6 && word.length() <= 12).parallel()  // garde uniquement les mots d'une longueur de 6 à 12 lettres
+                            .map(String::toLowerCase).parallel()  // les mets tous en minuscule
+                            .collect(Collectors.groupingBy(Function.identity(), Collectors.counting())); // rassemble dans la map les mots en comptant le nombre d'occurences
+            /*Map<String, Long> words =
                     stream.flatMap(line -> Arrays.stream(line.split(regex)))  // découpe en utilisant une regex pour trouver les séparateurs
-                    .filter(line -> Optional.ofNullable(line).orElse("").length() != 0)  // enlève les lignes vides
-                    .filter(word -> word.length() >= 6 && word.length() <= 12)  // garde uniquement les mots d'une longueur de 6 à 12 lettres
-                    .map(String::toLowerCase)  // les mets tous en minuscule
-                    .collect(Collectors.groupingBy(Function.identity(), Collectors.counting())); // rassemble dans la map les mots en comptant le nombre d'occurences
+                            .filter(line -> Optional.ofNullable(line).orElse("").length() != 0)  // enlève les lignes vides
+                            .filter(word -> word.length() >= 6 && word.length() <= 12)  // garde uniquement les mots d'une longueur de 6 à 12 lettres
+                            .map(String::toLowerCase)  // les mets tous en minuscule
+                            .collect(Collectors.groupingBy(Function.identity(), Collectors.counting())); // rassemble dans la map les mots en comptant le nombre d'occurences
+                            */
 
             System.out.println("Word count done.");
 

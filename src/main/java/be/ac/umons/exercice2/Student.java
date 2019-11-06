@@ -1,6 +1,7 @@
 package be.ac.umons.exercice2;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.Objects.requireNonNull;
 
@@ -38,6 +39,10 @@ public class Student {
         return totalScore / count;
     }
 
+    public double averageScoreStream(){
+        return scoreByCourse.values().stream().mapToInt(p->p.intValue()).average().getAsDouble();
+    }
+
     public String bestCourse() {
 
         String bestCourse = "";
@@ -53,6 +58,15 @@ public class Student {
         return bestCourse;
     }
 
+    public String bestCourseStream(){
+        //scoreByCourse.values().stream().mapToInt(p->p.intValue()).sorted().
+        return scoreByCourse.entrySet().stream() // entrySet : renvoie une liste qui contient clef et value
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())) // on trie par ordre décroissant
+                .findFirst() // on prend le premier (= le plus grand)
+                .map(Map.Entry::getKey) // on prend la clef
+                .toString();
+    }
+
     public int bestScore() {
 
         int bestScore = 0;
@@ -62,6 +76,13 @@ public class Student {
         }
         return bestScore;
 
+    }
+
+    public int bestScoreStream(){
+        return scoreByCourse.values().stream().mapToInt(p->p.intValue()).max().getAsInt();
+        // Solution prof :
+        // return scoreByCourse.entrySet().stream()
+        // .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).findFirst().map(Map.Entry::getValue).orElse(0);
     }
 
     public Set<String> failedCourses() {
@@ -78,6 +99,11 @@ public class Student {
             failedCourses.add(entry.getKey());
         }
         return failedCourses;
+    }
+
+    public Set<String> failedCoursesStream() {
+        return scoreByCourse.entrySet().stream().filter(p-> p.getValue() < 10).map(Map.Entry::getKey)
+                .collect(Collectors.toCollection(HashSet::new));
     }
 
     public boolean isSuccessful() {

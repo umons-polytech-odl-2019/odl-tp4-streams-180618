@@ -56,16 +56,23 @@ public class Exercice2 {
         Student arya = students.get("Arya Stark");
         System.out.println("Attended courses by " + arya.getName() + " : " + arya.attendedCourses());
         System.out.println("Average score of " + arya.getName() + " : " + arya.averageScore());
+        System.out.println("Average score of " + arya.getName() + " : " + arya.averageScoreStream());
         System.out.println("Score by course for " + arya.getName() + " : " + arya.getScoreByCourse());
         System.out.println("Course failed by " + arya.getName() + " : " + arya.failedCourses());
+        System.out.println("Course failed by " + arya.getName() + " : " + arya.failedCoursesStream());
         System.out.println("Best course of " + arya.getName() + " : " + arya.bestCourse());
+        System.out.println("Best course of " + arya.getName() + " : " + arya.bestCourseStream());
 
         Student jon = students.get("Jon Snow");
         System.out.println("Course failed by " + jon.getName() + " : " + jon.failedCourses());
+        System.out.println("Course failed by " + jon.getName() + " : " + jon.failedCoursesStream());
         System.out.println("Best course of " + jon.getName() + " : " + jon.bestCourse());
+        System.out.println("Best course of " + jon.getName() + " : " + jon.bestCourseStream());
         System.out.println("Best score of " + jon.getName() + " : " + jon.bestScore());
+        System.out.println("Best score of " + jon.getName() + " : " + jon.bestScoreStream());
 
         System.out.println(jon.getName() + " average score : " + jon.averageScore());
+        System.out.println(jon.getName() + " average score : " + jon.averageScoreStream());
 
     }
 }
