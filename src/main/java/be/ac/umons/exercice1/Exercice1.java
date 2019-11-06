@@ -55,8 +55,7 @@ public class Exercice1 {
     private static double lambda(List<? extends Employee> peoples){
         // Compléter le code par le traitement d'un stream équivalent
         // à celui de la fonction calculateAverage
-
-        return 0;
+        return peoples.stream().mapToInt(p->p.getAge()).average().getAsDouble();
     }
 
 }
