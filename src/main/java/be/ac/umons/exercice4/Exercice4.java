@@ -27,7 +27,7 @@ public class Exercice4 {
         String filePath = null;
 
         if (args.length == 0)
-            filePath = new String("frwiki-20191101-pages-articles1-3M.txt");
+            filePath = new String("wiki.txt");
         else if (args.length > 0 && args[0] != null && !args[0].isEmpty())
         {
             filePath = args[0];
@@ -48,7 +48,7 @@ public class Exercice4 {
                             .filter(word -> word.length() >= 6 && word.length() <= 12)  // garde uniquement les mots d'une longueur de 6 à 12 lettres
                             .map(String::toLowerCase)  // les mets tous en minuscule
                             .collect(Collectors.groupingBy(Function.identity(), Collectors.counting())); // rassemble dans la map les mots en comptant le nombre d'occurences
-                            */
+*/
 
             System.out.println("Word count done.");
 
